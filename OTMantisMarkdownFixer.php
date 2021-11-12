@@ -1,6 +1,8 @@
 <?php
 
-require_once realpath(dirname(__FILE__))."/Parsedown.php";
+if(!class_exists('Parsedown')){
+	require_once realpath(dirname(__FILE__))."/Parsedown.php";
+}
 
 class OTMantisMarkdownFixerPlugin extends MantisPlugin
 {

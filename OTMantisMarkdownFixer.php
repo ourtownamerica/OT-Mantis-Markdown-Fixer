@@ -1,16 +1,14 @@
 <?php
 
-if(!class_exists('Parsedown')){
-	require_once realpath(dirname(__FILE__))."/Parsedown.php";
-}
+require_once realpath(dirname(__FILE__))."/Parsedown.php";
 
 class OTMantisMarkdownFixerPlugin extends MantisPlugin
 {
 	public function register(): void
 	{
 		$this->name = 'OT Mantis Markdown Fixer';
-		$this->description = 'Fixes the markdown issue, adds syntax highlighting to code blocks when language is indicated.';
-		$this->version = '0.0.2';
+		$this->description = 'Fixes the markdown issue';
+		$this->version = '0.0.3';
 		$this->requires = [
 			'MantisCore' => '2.0.0',
 		];
@@ -30,7 +28,7 @@ class OTMantisMarkdownFixerPlugin extends MantisPlugin
 
 	public function display_formatted_hook( $p_event, $p_string, $p_multiline = true ) {
 		$Parsedown = new Parsedown();
-		return $Parsedown->text($p_string);
+		return $p_multiline ? $Parsedown->text($p_string) : $Parsedown->line($p_string);
 	}
 	
 	public function layout_resources_hook() {
